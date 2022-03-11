@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .box {
+        display: flex;
+        justify-content: space-around;
+      }
+      .box1 {
+        width: 120px;
+        height: 120px;
+        background-color: red;
+        margin: 10px;
+        border-radius: 50%;
+      }
+      .box2 {
+        width: 120px;
+        height: 120px;
+        background-color: orange;
+        margin: 10px;
+        border-radius: 50%;
+      }
+      .box3 {
+        width: 120px;
+        height: 120px;
+        background-color: green;
+        margin: 10px;
+        border-radius: 50%;
+      }
+      .slide {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 120px;
+        height: 120px;
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="show_button">보이기</button>
+    <button id="hide_button">숨기기</button>
+
+    <p id="text">글자가 보이고 숨겨집니다</p>
+
+    <button id="toggle_button">토글 버튼</button>
+    <div id="toggle">
+      <p>이 요소는 div안의 p요소입니다</p>
+      <p>toggle을 통해 효과를 주었습니다</p>
+    </div>
+
+    <button id="fadein">보이기</button>
+    <button id="fadeout">숨기기</button>
+
+    <p id="fade_text">글자가 보여지고 숨겨집니다</p>
+
+    <button id="mouse1">빨</button>
+    <button id="mouse2">주</button>
+    <button id="mouse3">초</button>
+    <div class="box">
+      <div class="box1"></div>
+      <div class="box2"></div>
+      <div class="box3"></div>
+    </div>
+
+    <div class="slide"></div>
+    <button id="slide_toggle">슬라이드</button>
+    <!-- 스크립트 -->
+    <script>
+      $("#show_button").on("click", function () {
+        $("#text").show("fast");
+      });
+
+      $("#hide_button").on("click", function () {
+        $("#text").hide(500);
+      });
+
+      $("#toggle").hide();
+      $("#toggle_button").on("click", function () {
+        $("#toggle").toggle();
+      });
+
+      $("#fadein").on("click", function () {
+        $("#fade_text").fadeIn();
+      });
+      $("#fadeout").on("click", function () {
+        $("#fade_text").fadeOut();
+      });
+
+      $(".box1").hide();
+      $(".box2").hide();
+      $(".box3").hide();
+      $("#mouse1").on({
+        mouseenter: function () {
+          $(".box1").fadeIn();
+        },
+        mouseleave: function () {
+          $(".box1").fadeOut();
+        },
+      });
+      $("#mouse2").on({
+        mouseenter: function () {
+          $(".box2").slideUp();
+        },
+        mouseleave: function () {
+          $(".box2").slideDown();
+        },
+      });
+      $("#mouse3").on({
+        mouseenter: function () {
+          $(".box3").fadeIn();
+        },
+        mouseleave: function () {
+          $(".box3").delay(1000).fadeOut();
+        },
+      });
+
+      $("#slide_toggle").on("click", function () {
+        $(".slide").slideToggle();
+      });
+    </script>
+  </body>
+</html>
