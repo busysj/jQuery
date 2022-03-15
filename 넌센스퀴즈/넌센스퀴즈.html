@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>넌센스 Quiz 맞추기</h1>
+    <p>3문제 - 중복O</p>
+    <h3><a href="#" id="start">시작</a></h3>
+    <h3 id="quiz"></h3>
+    <!-- form을 사용하게 되면 submit 이벤트 사용가능-->
+    <form id="input_form" style="display: none">
+      <!-- jQuery의 show, hide사용을 위해 display: none -->
+      <input type="text" id="input_text" />
+    </form>
+    <p id="score"></p>
+
+    <script>
+      // 사용되는 변수들
+      let score = 0;
+      let count = 0; // 문제를 몇 번 풀었는 지 확인하기 위함
+      let randomNum = 0;
+      const quizArray = [
+        { quiz: "13+50", answer: "63" },
+        { quiz: "10-3", answer: "7" },
+        { quiz: "10-10", answer: "0" },
+        { quiz: "0*39", answer: "0" },
+        { quiz: "20*1", answer: "20" },
+      ];
+
+      // 시작을 눌렀을 때 입력란 보이기
+      $("#start").on("click", function (e) {
+        e.preventDefault();
+        $("#input_form").hide().slideDown();
+        $("#input_form").children().first().focus();
+
+        // 시작버튼을 눌렀을 때 출력되는 문제
+        quizstart();
+        count = 0;
+        score = 0;
+        $("#score").text("");
+      });
+
+      // submit 이벤트 발생 시 input값 비교
+      $("#input_form").on("submit", function (e) {
+        e.preventDefault(); // 새로고침 막기
+
+        const answer = quizArray[randomNum].answer; // 랜덤 퀴즈 값 가져오기
+        const $user = $("#input_form").children().first().val();
+        // .prop("value")
+        count++; // 문제 횟수 증가
+
+        // 답과 사용자 값이 같다면 점수를 올림
+        if ($user == answer) {
+          score++;
+          $("#score").text(`${score}점 입니다`);
+        }
+
+        // 퀴즈를 새로 내고, 입력란을 빈칸으로 만듬
+        quizstart();
+        $("#input_form").children().first().val("");
+
+        // count == 3 -> input_form을 숨기고 퀴즈 문제란을 빈칸으로 만듬
+        if (count == 3) {
+          $("#input_form").hide();
+          $("#quiz").text("");
+          count = 0;
+          score = 0;
+        }
+      });
+
+      function quizstart() {
+        randomNum = Math.floor(Math.random() * quizArray.length);
+        $("#quiz").text(quizArray[randomNum].quiz);
+      }
+    </script>
+  </body>
+</html>

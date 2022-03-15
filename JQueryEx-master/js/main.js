@@ -5,6 +5,7 @@ $(function () {
     autoplay: true,
     autoplaySpeed: 3000,
     dots: true,
+    arrows: true,
   });
 
   // 탭 메뉴 숨기기 및 활성화
